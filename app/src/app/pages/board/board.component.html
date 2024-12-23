@@ -1,0 +1,11 @@
+<div nz-row nzJustify="start">
+    @for (elem of content; track elem.index) {
+    <div nz-col nzSpan="4">
+      <nz-card [nzHoverable]='true' [nzExtra]="extraTemplate">{{ elem.content }}</nz-card>
+    </div>
+    <ng-template #extraTemplate>
+      {{ elem.index + 1}}
+    </ng-template>
+    }
+  </div>
+  

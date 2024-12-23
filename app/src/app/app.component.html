@@ -1,52 +1,37 @@
-<nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-    nzCollapsible
-    nzWidth="256px"
-    nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
-  >
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design of Angular</h1>
-      </a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
+<nz-layout>
+  <nz-header>
+      <!-- <div class="logo">Shindig</div> -->
+      <ul nz-menu nzTheme="dark" nzMode="horizontal">
+          @for(header of headerMap; track header.href) {
+          <li nz-menu-item [nzSelected]="rla.isActive">
+              <a
+                  [href]="header.href"
+                  [routerLink]="header.href"
+                  routerLinkActive
+                  #rla="routerLinkActive"
+                  ariaCurrentWhenActive="page"
+              >
+                  @if(header.loading) {
+                  <span nz-icon nzType="loading"></span>
+                  }@else {
+                  <span nz-icon [nzType]="header.icon"></span>
+                  }
+                  <span class="icon-text">
+                      {{ header.title }}
+                  </span>
+              </a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
-        </span>
-      </div>
-    </nz-header>
-    <nz-content>
+          }
+      </ul>
+  </nz-header>
+  <nz-content>
       <div class="inner-content">
-        <router-outlet></router-outlet>
+          <router-outlet class="main-container"></router-outlet>
       </div>
-    </nz-content>
-  </nz-layout>
+  </nz-content>
+  <nz-footer
+      >Made with 💙 by
+      <a href="http://github.com/kwongtn" target="_blank"> KwongTN </a>
+      & contributors, GNU AGPLv3</nz-footer
+  >
 </nz-layout>
