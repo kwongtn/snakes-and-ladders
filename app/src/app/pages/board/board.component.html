@@ -1,11 +1,16 @@
 <div nz-row nzJustify="start">
-    @for (elem of content; track elem.index) {
-    <div nz-col nzSpan="4">
-      <nz-card [nzHoverable]='true' [nzExtra]="extraTemplate">{{ elem.content }}</nz-card>
-    </div>
-    <ng-template #extraTemplate>
-      {{ elem.index + 1}}
-    </ng-template>
-    }
+  @for (cell of board.cellArray; track cell; let idx = $index) {
+  <div nz-col nzSpan="4">
+    <nz-card [nzHoverable]="true" [nzExtra]="extraTemplate">
+      @if(idx == 0){ Start } @else {
+      {{ cell.text }}
+      }
+    </nz-card>
   </div>
-  
+  <ng-template #extraTemplate>
+    {{ idx }}
+    @if(board.gameProp.board.debug){ - {{ cell.impact | number : "1.0-3" }}
+    }
+  </ng-template>
+  }@empty { No data yet. }
+</div>
