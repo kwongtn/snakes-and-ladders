@@ -53,7 +53,7 @@ export interface IGameProp {
   dice: IDiceProp;
   // tags:;
   content: ITemplatedCellContent[];
-  cells: IFixedCellContent[];
+  cells?: IFixedCellContent[];
 }
 
 export class Board {
@@ -66,7 +66,7 @@ export class Board {
   occurenceTracker: { [key: string]: number } = {};
 
   setFixedCells() {
-    this.gameProp.cells.forEach((cell: IFixedCellContent) => {
+    this.gameProp.cells?.forEach((cell: IFixedCellContent) => {
       cell.positions.forEach((pos: number) => {
         this.cellData.splice(pos, 0, new Cell(cell, this.seed));
       });
@@ -86,7 +86,7 @@ export class Board {
 
     for (
       let i = 0;
-      i < this.gameProp.board.size - this.gameProp.cells.length;
+      i < this.gameProp.board.size - (this.gameProp.cells?.length ?? 0);
       i++
     ) {
       if (this.cellData[i] === undefined) {
